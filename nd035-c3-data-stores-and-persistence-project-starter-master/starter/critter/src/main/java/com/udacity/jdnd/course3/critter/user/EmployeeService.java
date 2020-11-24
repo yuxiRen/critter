@@ -25,5 +25,6 @@ public class EmployeeService {
         }
         employee.setDaysAvailable(availableDays);
         employeeRepository.save(employee);
+        return true;
     }
 }
