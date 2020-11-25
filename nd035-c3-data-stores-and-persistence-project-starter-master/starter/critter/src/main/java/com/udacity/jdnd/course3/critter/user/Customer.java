@@ -58,4 +58,5 @@ public class Customer {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+    public void addPet(Pet pet){ this.pets.add(pet); }
 }
