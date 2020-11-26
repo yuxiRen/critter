@@ -47,18 +47,37 @@ public class ScheduleController {
     }
 
     @GetMapping("/pet/{petId}")
-    public List<ScheduleDTO> getScheduleForPet(@PathVariable long petId) {
-        throw new UnsupportedOperationException();
+    public List<ScheduleDTO> getScheduleForPet(@PathVariable long petId){
+        List<Schedule> schedules = scheduleService.getSchedulesByPet(petService.findPet(petId));
+        List<ScheduleDTO> scheduleDTOs = new ArrayList<>();
+        for (Schedule schedule : schedules) {
+            scheduleDTOs.add(convertScheduleToScheduleDTO(schedule));
+        }
+        return scheduleDTOs;
     }
 
     @GetMapping("/employee/{employeeId}")
     public List<ScheduleDTO> getScheduleForEmployee(@PathVariable long employeeId) {
-        throw new UnsupportedOperationException();
+        List<Schedule> schedules = scheduleService.getSchedulesByEmployee(employeeService.findEmployee(employeeId));
+        List<ScheduleDTO> scheduleDTOs = new ArrayList<>();
+        for (Schedule schedule : schedules) {
+            scheduleDTOs.add(convertScheduleToScheduleDTO(schedule));
+        }
+        return scheduleDTOs;
     }
 
     @GetMapping("/customer/{customerId}")
     public List<ScheduleDTO> getScheduleForCustomer(@PathVariable long customerId) {
-        throw new UnsupportedOperationException();
+        List<Pet> pets = customerService.findCustomerById(customerId).getPets();
+        List<Schedule> schedules = new ArrayList<>();
+        List<ScheduleDTO> scheduleDTOs = new ArrayList<>();
+        for (Pet pet : pets) {
+            schedules.addAll(scheduleService.getSchedulesByPet(pet));
+        }
+        for (Schedule schedule : schedules) {
+            scheduleDTOs.add(convertScheduleToScheduleDTO(schedule));
+        }
+        return scheduleDTOs;
     }
 
     private ScheduleDTO convertScheduleToScheduleDTO(Schedule schedule) {
@@ -78,7 +97,7 @@ public class ScheduleController {
         if(employees != null){
             List<Long> employeeIds = new ArrayList<Long>();
             for (Employee employee : employees) {
-                employeeIds.add(employee.getId();
+                employeeIds.add(employee.getId());
             }
             scheduleDTO.setEmployeeIds(employeeIds);
         }
