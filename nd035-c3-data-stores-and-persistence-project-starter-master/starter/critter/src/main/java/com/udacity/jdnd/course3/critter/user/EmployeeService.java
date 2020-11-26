@@ -42,4 +42,8 @@ public class EmployeeService {
         }
         return foundEmployees;
     }
+
+    public Employee findEmployee(Long id) {
+        return employeeRepository.findById(id).orElse(null);
+    }
 }
