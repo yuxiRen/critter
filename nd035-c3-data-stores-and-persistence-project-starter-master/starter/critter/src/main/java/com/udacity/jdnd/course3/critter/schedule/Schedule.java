@@ -12,8 +12,8 @@ import java.util.Set;
 @Entity
 public class Schedule {
     @Id
-    @GeneratedValue
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @ManyToMany
     private List<Employee> employees;
     @ManyToMany
@@ -22,7 +22,7 @@ public class Schedule {
     @ElementCollection
     private Set<EmployeeSkill> activities;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

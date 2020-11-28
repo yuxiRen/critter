@@ -33,8 +33,10 @@ public class UserController {
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
         List<Long> petIds = customerDTO.getPetIds();
         List<Pet> pets = new ArrayList<>();
-        for (Long petId : petIds) {
-            pets.add(petService.findPet(petId));
+        if (petIds != null) {
+            for (Long petId : petIds) {
+                pets.add(petService.findPet(petId));
+            }
         }
         Customer customer = convertCustomerDTOToCustomer(customerDTO);
         customer.setPets(pets);

@@ -9,8 +9,8 @@ import java.time.LocalDate;
 @Entity
 public class Pet {
     @Id
-    @GeneratedValue
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 8)
@@ -26,7 +26,7 @@ public class Pet {
     private LocalDate birthDate;
     private String notes;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
