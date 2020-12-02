@@ -22,7 +22,18 @@ public class PetController {
 
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO){
-        throw new UnsupportedOperationException();
+        Pet pet = convertPetDTOToPet(petDTO);
+        Long ownerId = petDTO.getOwnerId();
+        Customer customer = customerService.findCustomerById(ownerId);
+        if (customer != null) {
+            pet.setCustomer(customer);
+        }
+        pet = petService.save(pet);
+        List<Pet> petList = new ArrayList<Pet>();
+        petList.add(pet);
+        customer.setPets(petList);
+        customerService.save(customer);
+        return convertPetToPetDTO(pet);
     }
 
     @PostMapping("/{ownerId}")
